@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Books Home</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #wrapper{
+            margin: 20px auto;
+            width: 970px;
+            padding: 10px;
+            background: linear-gradient(rgb(206, 59, 59),rgb(226, 225, 225));
+        }
+        .recent_reviews, .all_books{
+            display: inline-block;
+            width: 450px;
+            line-height: 25px;
+            margin-right: 20px;
+            margin-top: 10px;
+            vertical-align: top;
+        }
+        h1{
+            margin: 10px 0px;
+        }
+        .book{
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <h1>Welcome, {{user.first_name}}!</h1>
+        <p><a href="/new_book">Add Book and Review</a> <a href="/">Logout</a></p>
+        <div class="recent_reviews">
+            <h2>Recent Book Reviews:</h2>
+            {% for book in last_books %}
+                <div class="book">
+                    <h2><a href="/view_book/{{book.id}}">{{book.title}}</a></h2>
+                    <p>Rating: {{book.reviews.first.rating}}/5</p>
+                    <p><a href="/view_user/{{book.reviews.first.reviewer.id}}">{{book.reviews.first.reviewer.first_name}}</a> says: {{book.reviews.first.review}}</p>
+                    <p>Posted on {{book.reviews.first.created_at}}</p>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="all_books">
+            {% for book in books %}
+                <p><a href="/view_book/{{book.id}}">{{book.title}}</a></p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

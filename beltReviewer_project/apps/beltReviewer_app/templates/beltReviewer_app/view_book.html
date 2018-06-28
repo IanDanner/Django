@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>View Book</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #wrapper{
+            margin: 20px auto;
+            width: 970px;
+            padding: 10px;
+            background: linear-gradient(rgb(206, 59, 59),rgb(226, 225, 225));
+
+        }
+        .register, .login{
+            display: inline-block;
+            width: 270px;
+            height: 400px;
+            line-height: 30px;
+            margin-right: 150px;
+            margin-top: 40px;
+        }
+        h1, h2 , h3, h4{
+            margin: 10px 0px;
+        }
+        .review{
+            border-top: 2px solid black;
+            width: 100%;
+            line-height: 30px;
+            margin-right: 150px;
+        }
+        .all_reviews, .new_review{
+            display: inline-block;
+            width: 400px;
+            vertical-align: top;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <a href="/list_books">Home</a>
+        <a href="/">Logout</a>
+        <h1>{{book.title}}</h1>
+        <h4>{{book.author.name}}</h4>
+        <div class="all_reviews">
+            <h3>Reviews:</h3>
+            {% for review in reviews %}
+                <div class="review">
+                    <p>Rating: {{review.rating}}/5</p>
+                    <p><a href="/view_user/{{review.reviewer.id}}">{{review.reviewer.first_name}}</a> says: {{review.review}}</p>
+                    <p>Posted on {{review.created_at}}</p>
+                    {% if review.reviewer.id == current_user %}
+                        <p><a href="/delete_review/{{review.id}}">Delete this review</a></p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="new_review">
+            <h3>Add a new Review</h3>
+            <form action="/add_review" method="POST">
+                {% csrf_token %}
+                <p>Review: <textarea name="review" cols="30" rows="10"></textarea></p>
+                <p>Rating: 
+                    <select name="rating">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>                        
+                    </select>
+                </p>
+                <input type="submit" value="Submit Review">
+            </form>
+        </div>
+    </div>
+</body>
+</html>

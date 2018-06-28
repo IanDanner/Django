@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>View User</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #wrapper{
+            margin: 20px auto;
+            width: 970px;
+            padding: 10px;
+            background: linear-gradient(rgb(206, 59, 59),rgb(226, 225, 225));
+        }
+        .register, .login{
+            display: inline-block;
+            width: 270px;
+            height: 400px;
+            line-height: 30px;
+            margin-right: 150px;
+            margin-top: 40px;
+        }
+        h1{
+            margin: 10px 0px;
+        }
+        .reviewed{
+            margin-top: 20px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <p><a href="/list_books">Home</a> <a href="/new_book">Add Book and Review</a> <a href="/">Logout</a></p>
+        <h1>User Alias: {{user.first_name}}</h1>
+        <h3>Name: {{user.first_name}} {{user.last_name}}</h3>
+        <h3>Email: {{user.email}}</h3>
+        <h3>Total Reviews: {{count}}</h3>
+        <div class="reviewed">
+            <h3>Posted Reviews on the following books:</h3>
+            {% for review in reviews %}
+                <p><a href="/view_book/{{review.book_reviewed.id}}">{{review.book_reviewed.title}}</a></p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
